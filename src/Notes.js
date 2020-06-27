@@ -6,7 +6,10 @@ import Paper from '@material-ui/core/Paper';
 
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
-//import 'prismjs/components/prism-markdown';
+import 'prismjs/components/prism-markup';
+import 'prismjs/components/prism-markdown';
+import 'prismjs/themes/prism.css';
+
 import ReactMarkdown from 'react-markdown';
 
 function Notes() {
@@ -26,8 +29,12 @@ function Notes() {
             <Editor
               value={notes}
               onValueChange={code => setNotes(code)}
-              highlight={code => code}
+              highlight={(code) => { return highlight(code, languages.markdown);}}
               padding={10}
+              style={{
+                fontFamily: '"Fira code", "Fira Mono", monospace',
+                fontSize: 12,
+              }}
             />
           </Paper>
         </Grid>
