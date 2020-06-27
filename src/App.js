@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 
+import { Link, Switch, Route, useLocation } from 'react-router-dom';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tabs from '@material-ui/core/Tabs';
@@ -13,37 +15,26 @@ import Board from './Board.js';
 import Notes from './Notes.js';
 
 function App() {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  let tab;
-  switch(value){
-    case 0: 
-      tab = <Board />;
-      break;
-    case 2:
-      tab = <Notes />;
-      break;
-    default:
-      break;
-  }
+  let location = useLocation();
 
   return (
     <div className="app">
       <AppBar position="static">
-        <Toolbar center>
-          <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="Game Board" />
-            <Tab label="Material" />
-            <Tab label="Notes" />
-            <Tab label="Charakter" />
+        <Toolbar>
+          <Tabs value={location.pathname}>
+            <Tab label="Game Board" value="/board" component={Link} to="board" />
+            <Tab label="Material" value="/material" component={Link} to="material" />
+            <Tab label="Notes" value="/notes" component={Link} to="notes" />
+            <Tab label="Character" value="/character" component={Link} to="character" />
           </Tabs>
         </Toolbar>
       </AppBar>
-      {tab}
+      <Switch>
+        <Route path="/board"> <Board /> </Route>
+        <Route path="/material"> <Board /> </Route>
+        <Route path="/notes"> <Notes /> </Route>
+        <Route path="/character"> <Board /> </Route>
+      </Switch>
     </div>
   );
 }
