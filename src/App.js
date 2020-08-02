@@ -10,6 +10,7 @@ import Tab from '@material-ui/core/Tab';
 import Board from './Board.js';
 import Content from './Content.js';
 import Notes from './Notes.js';
+import Character from './Character.js';
 
 function App() {
   let location = useLocation();
@@ -29,7 +30,7 @@ function App() {
           <Route path="/board"> <Board /> </Route>
           <Route path="/content"> <Content /> </Route>
           <Route path="/notes"> <Notes /> </Route>
-          <Route path="/character"> <Board /> </Route>
+          <Route path="/character"> <Character /> </Route>
         </Switch>
       </div>
     </div>
