@@ -21,6 +21,9 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import Casino from '@material-ui/icons/Casino';
 
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 const stats = {
   skills: {
     "verborgenes erkennen": 80,
@@ -79,7 +82,24 @@ function SkillItem(props){
   );
 }
 
+function EditSkillItem(props){
+  return (
+    <ListItem dense button onClick={props.onClick}>
+      <ListItemText
+        primary={props.name}
+        secondary={props.value}
+      />
+      <ListItemSecondaryAction>
+        <IconButton>
+          <Casino />
+        </IconButton>
+      </ListItemSecondaryAction>
+    </ListItem>
+  );
+}
+
 function Character() {
+  const [inEditMode, setEditMode] = useState(false);
   const [open, setOpen] = useState(false);
   const [currentSkill, setCurrentSkill] = useState(Object.keys(stats.skills)[0]);
 
@@ -98,6 +118,14 @@ function Character() {
 
   return (
     <Container maxWidth="sm">
+      <FormControlLabel
+        control=
+          <Switch
+            checked={inEditMode}
+            onChange={(event) => setEditMode(event.target.checked)}
+          />
+        label="edit mode"
+      />
       <ChangeValueDialog
         onClose={handleClose}
         name={currentSkill}
